@@ -205,15 +205,19 @@ getMe <- function()
 #'     returned.
 #' @param limit Limits the number of updates to be retrieved. Values
 #'     between 1-100 are accepted. Defaults to 100
+#' @param timeout Timeout in seconds for long polling. Defaults to 0, i.e. usual short polling
 getUpdates <- function(offset = NULL,
-                       limit = NULL)
+                       limit = NULL,
+                       timeout = 0)
 {
     ## params
     offset <- check_param(offset, 'int')
     limit <- check_param(limit, 'int')
+    timeout <- check_param(timeout, 'int')
     ## request body
     body <- make_body('offset' = offset,
-                      'limit' = limit)
+                      'limit' = limit,
+                      'timeout' = timeout)
     r <- private$request('getUpdates', body = body)
     if (r$status == 200){
         rval <- parsed_content(r)
