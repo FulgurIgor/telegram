@@ -378,17 +378,22 @@ sendLocation <- function(latitude = NULL,
 #'     original message
 #' @param chat_id Unique identifier for the target chat or username of
 #'     the target channel (required)
+#' @param disable_notification Sends the message silently.
+#'     iOS users will not receive a notification,
+#'     Android users will receive a notification with no sound.
 sendMessage <- function(text = NULL,
                         parse_mode = NULL,
                         disable_web_page_preview = NULL,
                         reply_to_message_id = NULL,
-                        chat_id = NULL)
+                        chat_id = NULL,
+                        disable_notification = NULL)
 {
     ## params
     chat_id <- private$check_chat_id(chat_id = chat_id)
     text <- check_param(text, 'char', required = TRUE)
     parse_mode <- check_param(parse_mode, 'char')
     disable_web_page_preview <- check_param(disable_web_page_preview, 'log')
+    disable_notification <- check_param(disable_notification, 'log')
     reply_to_message_id <- check_param(reply_to_message_id, 'int')
     ## request body
     body <- make_body('chat_id' = chat_id,
